@@ -24,7 +24,7 @@
         "--max-line-length=100"
     ],
     "python.linting.pylintEnabled": true,
-    "python.pythonPath": "python3",
+    "python.pythonPath": ".venv/bin/python",
     "python.sortImports.args": [
         "-ns",
         "__init__.py"
