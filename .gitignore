@@ -120,6 +120,3 @@ dmypy.json
 titles.txt
 messages/
 data/
-
-# TODO: Remove
-*.ipynb

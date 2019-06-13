@@ -7,10 +7,12 @@ verify_ssl = true
 blackcellmagic = "*"
 pylint = "*"
 black = "*"
+nbstripout = "*"
 
 [packages]
 jupyter = "*"
 peewee = "*"
+nltk = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a07613a0c781228d2c9c7c50ea95d48ed7ea47ac80b2ed2a44ad777d1e5cb7ab"
+            "sha256": "d05331627b61f03186530c33990d722d5fddfa1fc2eab5d6548d9abc055566a3"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -199,6 +199,13 @@
                 "sha256:f7494ef0df60766b7cabe0a3651556345a963b74dbc16bc7c18479041170d402"
             ],
             "version": "==4.4.0"
+        },
+        "nltk": {
+            "hashes": [
+                "sha256:12d7129aea0972840419499411d3aa815c6ad66336a51131e120d35a25d953b2"
+            ],
+            "index": "pypi",
+            "version": "==3.4.3"
         },
         "notebook": {
             "hashes": [
@@ -485,6 +492,20 @@
             ],
             "version": "==0.13.3"
         },
+        "jsonschema": {
+            "hashes": [
+                "sha256:0c0a81564f181de3212efa2d17de1910f8732fa1b71c42266d983cd74304e20d",
+                "sha256:a5f6559964a3851f59040d3b961de5e68e70971afb88ba519d27e6a039efff1a"
+            ],
+            "version": "==3.0.1"
+        },
+        "jupyter-core": {
+            "hashes": [
+                "sha256:927d713ffa616ea11972534411544589976b2493fc7e09ad946e010aa7eb9970",
+                "sha256:ba70754aa680300306c699790128f6fbd8c306ee5927976cbe48adacf240c0b7"
+            ],
+            "version": "==4.4.0"
+        },
         "lazy-object-proxy": {
             "hashes": [
                 "sha256:159a745e61422217881c4de71f9eafd9d703b93af95618635849fe469a283661",
@@ -514,6 +535,21 @@
                 "sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"
             ],
             "version": "==0.6.1"
+        },
+        "nbformat": {
+            "hashes": [
+                "sha256:b9a0dbdbd45bb034f4f8893cafd6f652ea08c8c1674ba83f2dc55d3955743b0b",
+                "sha256:f7494ef0df60766b7cabe0a3651556345a963b74dbc16bc7c18479041170d402"
+            ],
+            "version": "==4.4.0"
+        },
+        "nbstripout": {
+            "hashes": [
+                "sha256:814efbe00988445b2c3f3d1944c9f296a556e2b14a060f7b25372881c2e497d4",
+                "sha256:8f085e26e60e9d9c0710748510d1c763c8f63905cb16df7658b35a2936e8ca2b"
+            ],
+            "index": "pypi",
+            "version": "==0.3.5"
         },
         "parso": {
             "hashes": [
@@ -567,6 +603,12 @@
             ],
             "index": "pypi",
             "version": "==2.3.1"
+        },
+        "pyrsistent": {
+            "hashes": [
+                "sha256:16692ee739d42cf5e39cef8d27649a8c1fdb7aa99887098f1460057c5eb75c3a"
+            ],
+            "version": "==0.15.2"
         },
         "six": {
             "hashes": [

@@ -73,6 +73,10 @@ def _store_message(ChatDB, m):
     # Store message before working on assets.
     message = ChatDB.Message.create(sender=sender, timestamp=timestamp, content=content)
 
+    # Add content to content text index.
+    if content is not None:
+        ChatDB.MessageIndex.create(rowid=message.id, content=content)
+
     # Store Assets.
     if m_type == "Generic":
         assets = []

@@ -13,6 +13,7 @@ from peewee import (
     SqliteDatabase,
     TextField,
 )
+from playhouse.sqlite_ext import FTS5Model, RowIDField, SearchField
 
 _repo_root = os.path.dirname(__file__)
 _data_dir = os.path.join(_repo_root, "data")
@@ -58,6 +59,12 @@ def get_chat_db(chat_name, truncate=False):
         class Meta:
             indexes = ((("sender", "timestamp"), True),)
 
+    class MessageIndex(FTS5Model):
+        content = SearchField()
+
+        class Meta:
+            database = db
+
     class Reaction(BaseModel):
         user = ForeignKeyField(User, backref="reactions")
         message = ForeignKeyField(Message, backref="messages")
@@ -88,17 +95,18 @@ def get_chat_db(chat_name, truncate=False):
             indexes = ((("actor", "timestamp", "target"), True),)
 
     class ChatDB:
-        def __init__(self, User, Message, Reaction, Asset, Event):
+        def __init__(self, User, Message, MessageIndex, Reaction, Asset, Event):
             self.User = User
-            self.Reaction = Reaction
             self.Message = Message
+            self.MessageIndex = MessageIndex
+            self.Reaction = Reaction
             self.Asset = Asset
             self.Event = Event
 
         def open(self):
             """Returns whether connection could be opened."""
             if db.connect(reuse_if_open=True):
-                db.create_tables([User, Message, Reaction, Asset, Event])
+                db.create_tables([User, Message, MessageIndex, Reaction, Asset, Event])
                 return True
             return False
 
@@ -109,4 +117,11 @@ def get_chat_db(chat_name, truncate=False):
             return db.is_closed()
 
     # Keep ChatDB constructor private but allow user to open and close instance.
-    return ChatDB(User=User, Message=Message, Reaction=Reaction, Asset=Asset, Event=Event)
+    return ChatDB(
+        User=User,
+        Message=Message,
+        MessageIndex=MessageIndex,
+        Reaction=Reaction,
+        Asset=Asset,
+        Event=Event,
+    )
