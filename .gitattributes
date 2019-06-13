@@ -1,0 +1,4 @@
+*.ipynb filter=nbstripout diff=ipynb
+
+# Example of how to exclude notebooks from stripping.
+# Exclude.ipynb filter=false diff=false
