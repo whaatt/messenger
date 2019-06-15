@@ -2,13 +2,20 @@
 Analysis tools for Facebook Messenger data.
 
 ## Installation
-1. Run `brew install pipenv` (or your system's
-   [equivalent](https://docs.pipenv.org/en/latest/install/#installing-pipenv)).
-2. Install the Python virtualenv by running `PIPENV_VENV_IN_PROJECT=true pipenv install` in the
-   top-level of this repo. The environment variable forces `pipenv` to put the environment folder in
-   your project workspace.
-3. Download your chat dump in JSON format from Facebook.
-4. Place the `messages` directory from the dump in the top-level of this repo.
-5. Run `pipenv shell` to launch a virtual shell.
-6. Run `pipenv run jupyter notebook` to launch Jupyter Notebook.
-7. Open `Setup.ipynb` to get started.
+1. [Install](https://docs.pipenv.org/en/latest/install/#installing-pipenv)) the `pipenv` command.
+2. Grab dependencies by running `pipenv install` in the repository root.
+3. [Download](https://facebook.com/dyi) your Facebook dump in JSON format.
+4. Place the `messages` directory from the dump in the repository root.
+
+## Usage
+1. Execute `run.sh` to launch Jupyter Notebook with dependencies loaded.
+2. Open `notebooks/Setup.ipynb` to get started. (The other notebooks assume that you've completed
+   the setup.)
+
+## Development
+1. To use the VS Code workspace template, it's useful for the virtualenv to be installed in the same
+   directory as the repo. The corresponding install command is
+   `PIPENV_VENV_IN_PROJECT=true pipenv install --dev`. Note the `--dev` suffix to get
+   auto-formatting and other useful dev dependencies.
+2. Execute `setup.sh` to install some useful Git hooks (e.g. stripping Jupyter notebooks of their
+   output when you stage changes).

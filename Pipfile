@@ -13,6 +13,9 @@ nbstripout = "*"
 jupyter = "*"
 peewee = "*"
 nltk = "*"
+jupyter-contrib-nbextensions = "*"
+ipython = "*"
+python-datauri = "*"
 
 [requires]
 python_version = "3.7"

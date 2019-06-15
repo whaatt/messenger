@@ -1,6 +1,14 @@
+"""The `util` module.
+
+Useful methods to read from and store FB messenger dumps.
+
+"""
 import json
 import os
 from datetime import datetime
+
+from datauri import DataURI
+from IPython.core.display import HTML, Markdown, display
 
 from schema import AssetType, EventType, get_chat_db
 
@@ -9,7 +17,7 @@ _dump_prefix = "messages/inbox"
 _message_filename = "message_1.json"
 
 
-def get_dump_path(folder):
+def _get_dump_path(folder):
     """Returns a fully-qualified path to a particular thread dump."""
     return os.path.join(_repo_root, _dump_prefix, folder, _message_filename)
 
@@ -19,29 +27,47 @@ def _resolve_text(unicode_bytes):
     return unicode_bytes.encode("charmap").decode("utf8")
 
 
-def save_readable_titles():
-    """Saves a mapping from chat title to chat folder in the data dump."""
+def _get_readable_titles():
+    """Gets pairs of (chat title, chat folder) in the data dump."""
     titles = []
-    for d in os.listdir("messages/inbox"):
+    for d in os.listdir(os.path.join(_repo_root, "messages", "inbox")):
         # Ignore .DS_Store directories.
         if d[0] == ".":
             continue
 
-        dump_path = get_dump_path(d)
+        dump_path = _get_dump_path(d)
         with open(dump_path, "r") as dump_file:
             dump = json.loads(dump_file.read())
             titles.append((_resolve_text(dump["title"]), d))
 
     titles.sort()
-    titles_path = os.path.join(_repo_root, "titles.txt")
-    with open(titles_path, "w") as title_file:
-        for (readable, original) in titles:
-            readable = readable.strip()
-            if len(readable) == 0:
-                readable = "<Deactivated User>"
-            print(readable, file=title_file)
-            print(f"Folder: {original}", file=title_file)
-            print(file=title_file)
+    return titles
+
+
+def save_readable_titles(interactive=False):
+    """Saves a mapping from readable chat titles to chat folders in the dump."""
+    titles_string = ""
+    for (readable, original) in _get_readable_titles():
+        readable = readable.strip()
+        if len(readable) == 0:
+            readable = "<Deactivated User>"
+        titles_string += readable + "\n"
+        titles_string += f"Folder: {original}" + "\n\n"
+    titles_string = titles_string[:-1]
+
+    if interactive:
+        uri = DataURI.make("text/plain", charset="utf-8", base64=True, data=titles_string)
+        display(
+            HTML(
+                f"Generated a <a href='{uri}' target='_blank' style='text-decoration: none;'>"
+                + "mapping"
+                + "</a> from chat titles to folders."
+            )
+        )
+    else:
+        titles_path = os.path.join(_repo_root, "titles.txt")
+        with open(titles_path, "w") as title_file:
+            title_file.write(titles_string)
 
 
 def _unix_to_datetime(time, is_ms=False):
@@ -167,7 +193,7 @@ def _store_event(ChatDB, m):
 def store_chat(folder):
     """Stores a chat dump in its corresponding SQLite database."""
     # Load raw data dump for folder.
-    dump_path = get_dump_path(folder)
+    dump_path = _get_dump_path(folder)
     with open(dump_path, "r") as dump_file:
         dump = json.loads(dump_file.read())
 
